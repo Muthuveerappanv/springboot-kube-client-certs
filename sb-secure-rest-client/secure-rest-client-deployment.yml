@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: secure-rest-client
+spec:
+  selector:
+    matchLabels:
+      run: secure-rest-client
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: secure-rest-client
+    spec:
+      containers:
+      - name: secure-rest-client
+        image: secure-rest-client
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+        env:
+        - name: spring.profiles.active
+          value: minikube
+        - name: secure-rest-ip
+          valueFrom:
+            configMapKeyRef:
+              name: secure-rest-client-map
+              key: secure-rest-ip
+        - name: secure-rest-port
+          valueFrom:
+            configMapKeyRef:
+              name: secure-rest-client-map
+              key: secure-rest-port
+        volumeMounts:
+          - name: cert-mount
+            mountPath: "/extension/"
+            readOnly: true
+      volumes:
+        - name: cert-mount
+          secret:
+            secretName: sample-sec
+            items:
+              - key: client_pavel.p12
+                path: client_pavel.p12

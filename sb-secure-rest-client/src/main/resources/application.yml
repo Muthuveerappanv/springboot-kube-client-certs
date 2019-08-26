@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active:
+      - local
+
+---
+spring:
+  profiles: local
+certificate:
+  path: "classpath:"
+
+---
+spring:
+  profiles: minikube
+certificate:
+  path: /extension/

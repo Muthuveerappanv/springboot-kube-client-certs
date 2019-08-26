@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: secure-rest-server
+spec:
+  selector:
+    matchLabels:
+      run: secure-rest-server
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: secure-rest-server
+    spec:
+      containers:
+      - name: secure-rest-server
+        image: secure-rest-server
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8443

@@ -1,12 +1,12 @@
 # springboot-kube-client-certs
 project to maintain spring boot client certificates as kubernetes secrets
 
-# Create Secret (for private key)
+## Create Secret (for private key)
 
 ```kubectl create secret sample-sec --from-file=client_pavel.p12```
 (file is located at the client project resoruce folder)
 
-# Create configmap
+## Create configmap
 
 ```kubectl create configmap --from-literal=secure-rest-ip=secure-rest-server --from-literal=secure-rest-port=8443```
 
